@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    k8s-apps: http
+  name: crd-exporter
+  namespace: monitoring
+spec:
+  endpoints:
+  - interval: 15s
+    port: metrics
+    scheme: http
+  jobLabel: component
+  namespaceSelector:
+      matchNames:
+      - default
+  selector:
+      matchLabels:
+          app.kubernetes.io/name: crd-exporter

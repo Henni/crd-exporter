@@ -1,0 +1,15 @@
+- group: eks.aws.crossplane.io
+  version: v1beta1
+  plural: clusters
+  fields:
+    name: metadata.name
+    version: spec.forProvider.version
+    platformVersion: status.atProvider.platformVersion
+    oidc: status.atProvider.identity.oidc.issuer
+    costReference: spec.forProvider.tags.CostReference
+  metrics:
+    ready:
+      field: status.atProvider.status
+      type: stringEqual
+      stringEqual:
+        compare: ACTIVE

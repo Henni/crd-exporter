@@ -1,0 +1,14 @@
+commonLabels:
+  app.kubernetes.io/name: crd-exporter
+
+resources:
+- deployment.yaml
+- service.yaml
+- rbac.yaml
+# - servicemonitor.yaml
+
+configMapGenerator:
+- name: crd-exporter-config
+  files:
+  - config.yaml
+

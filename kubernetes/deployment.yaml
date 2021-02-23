@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crd-exporter
+spec:
+  selector:
+    matchLabels:
+      app: crd-exporter
+  template:
+    metadata:
+      labels:
+        app: crd-exporter
+    spec:
+      serviceAccountName: crd-exporter
+      containers:
+      - name: crd-exporter
+        imagePullPolicy: Always
+        image: crd-exporter:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9877
+        volumeMounts:
+        - mountPath: /app/config.yaml
+          name: config
+          subPath: config.yaml
+      volumes:
+        - name: config
+          configMap:
+              name: crd-exporter-config
